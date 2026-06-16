@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
 
-from backend.workers.token_traders import analyze_token_traders
+from workers.token_traders import analyze_token_traders
 
 
 router = APIRouter(

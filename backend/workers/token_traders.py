@@ -1,5 +1,5 @@
 import requests
-from backend.config import GMGN_CONFIG
+from config import GMGN_CONFIG
 
 def analyze_token_traders(
     token_address,

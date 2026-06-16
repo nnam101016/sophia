@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from backend.routes import wallet
-from backend.auth import router as auth_router
-from backend.routes import traders
+from routes import wallet
+from auth import router as auth_router
+from routes import traders
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware

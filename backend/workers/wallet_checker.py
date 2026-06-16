@@ -4,7 +4,7 @@ import itertools
 import json
 from collections import defaultdict
 from datetime import datetime, timedelta
-from backend.config import GMGN_CONFIG, HELIUS_API_KEY
+from config import GMGN_CONFIG, HELIUS_API_KEY
 
 # =========================================================
 # CONFIG
