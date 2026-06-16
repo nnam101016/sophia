@@ -1,0 +1,14 @@
+# secrets
+.env
+backend/.env
+
+# python
+__pycache__/
+*.pyc
+
+# next
+node_modules/
+.next/
+
+# misc
+.vscode/
