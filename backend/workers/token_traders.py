@@ -53,12 +53,12 @@ def analyze_token_traders(
     r = requests.get(
         url,
         params=params,
-        headers=headers
+        headers=headers,
+        timeout=20
     )
 
-
     print("GMGN STATUS:", r.status_code)
-
+    print("GMGN RESPONSE:", r.text[:300])
 
     data = r.json()
 

@@ -19,11 +19,15 @@ class TraderRequest(BaseModel):
 
 
 @router.post("/analyze")
-def analyze(
-    req:TraderRequest
-):
+def analyze(req: TraderRequest):
 
-    return analyze_token_traders(
+    print("TRADER REQUEST:", req)
+
+    result = analyze_token_traders(
         req.token,
         req.sort_by
     )
+
+    print("TRADER DONE")
+
+    return result
