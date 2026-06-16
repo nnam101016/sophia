@@ -28,7 +28,7 @@ try {
 
 
 const res = await fetch(
-    "http://localhost:8000/wallet/analyze",
+    `${process.env.NEXT_PUBLIC_API_URL}/wallet/analyze`,
     {
         method:"POST",
         headers:{

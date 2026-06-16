@@ -21,7 +21,7 @@ setLoading(true);
 
 
 const res = await fetch(
-"http://localhost:8000/traders/analyze",
+  `${process.env.NEXT_PUBLIC_API_URL}/traders/analyze`,
 {
 
 method:"POST",
