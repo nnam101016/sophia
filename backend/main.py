@@ -15,8 +15,8 @@ app.add_middleware(
     CORSMiddleware,
 
     allow_origins=[
-        "http://localhost:3000",
-        "https://sophia-eta-eight.vercel.app"
+        "https://sophia-eta-eight.vercel.app",
+        "http://localhost:3000"
     ],
 
     allow_credentials=True,
