@@ -16,40 +16,46 @@ const [loading,setLoading]=useState(false);
 
 async function analyze(){
 
-
 setLoading(true);
 
+try {
 
 const res = await fetch(
-  `${process.env.NEXT_PUBLIC_API_URL}/traders/analyze`,
-{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-
-token,
-
-sort_by:sort
-
-})
-
-}
-
+ `${process.env.NEXT_PUBLIC_API_URL}/traders/analyze`,
+ {
+ method:"POST",
+ headers:{
+ "Content-Type":"application/json"
+ },
+ body:JSON.stringify({
+ token,
+ sort_by:sort
+ })
+ }
 );
-
 
 
 const result = await res.json();
 
-setData(result.wallets || []);
+console.log("TRADERS RESULT:", result);
+
+
+setData(
+ Array.isArray(result)
+ ? result
+ : result.wallets || []
+);
+
+
+} catch(e){
+
+console.error("TRADER ERROR:", e);
+
+} finally {
 
 setLoading(false);
 
+}
 
 }
 
@@ -185,13 +191,13 @@ p-5
 
 <p>
 MC:
-${(w.entry_mc/1000).toFixed(1)}K
+${(w.entry_mc || 0)/1000}K
 </p>
 
 
 <p>
 PNL:
-${w.pnl.toFixed(0)}
+{(w.pnl || 0).toFixed(0)}
 ({w.pnl_percent.toFixed(1)}%)
 </p>
 
@@ -208,9 +214,9 @@ Trades:
 
 <p>
 Volume:
-${w.buy_volume.toFixed(0)}
+${(w.buy_volume || 0).toFixed(0)}
 -
-${w.sell_volume.toFixed(0)}
+${(w.sell_volume || 0).toFixed(0)}
 </p>
 
 

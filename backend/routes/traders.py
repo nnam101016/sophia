@@ -19,7 +19,7 @@ class TraderRequest(BaseModel):
 
 
 @router.post("/analyze")
-async def analyze(
+def analyze(
     req:TraderRequest
 ):
 
