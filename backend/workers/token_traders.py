@@ -1,69 +1,45 @@
 import requests
 from config import GMGN_CONFIG
 
-def analyze_token_traders(
-    token_address,
-    sort_by="entry_mc"
-):
+def analyze_token_traders(token_address, sort_by="entry_mc"):
 
-    url = (
-        "https://gmgn.ai/vas/api/v1/"
-        f"token_traders/sol/{token_address}"
-    )
-
+    url = f"https://gmgn.ai/vas/api/v1/token_traders/sol/{token_address}"
 
     params = {
-
-    "device_id":
-    GMGN_CONFIG["device_id"],
-    "fp_did":
-    GMGN_CONFIG["fp_did"],
-    "client_id":
-    GMGN_CONFIG["client_id"],
-
-    "from_app": "gmgn",
-    "app_ver": "20260611-977-e17d61d",
-    "tz_name": "Asia/Bangkok",
-    "tz_offset":25200,
-    "app_lang":"en-US",
-    "os":"web",
-    "worker":0,
-    "limit":100,
-    "orderby":"profit",
-    "direction":"desc"
-
-}
-
-
-    headers = {
-        "User-Agent":
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-
-        "Referer":
-        "https://gmgn.ai/",
-
-        "Origin":
-        "https://gmgn.ai",
-
-        "Accept":
-        "application/json, text/plain, */*"
+        **GMGN_CONFIG,
+        "from_app": "gmgn",
+        "app_ver": "20260611-977-e17d61d",
+        "tz_name": "Asia/Bangkok",
+        "tz_offset": 25200,
+        "app_lang": "en-US",
+        "os": "web",
+        "worker": 0,
+        "limit": 100,
+        "orderby": "profit",
+        "direction": "desc"
     }
 
+    headers = {
+        "User-Agent": "Mozilla/5.0",
+        "Accept": "application/json, text/plain, */*",
+        "Referer": "https://gmgn.ai/",
+        "Origin": "https://gmgn.ai"
+    }
 
-    r = requests.get(
-        url,
-        params=params,
-        headers=headers,
-        timeout=20
-    )
+    r = requests.get(url, params=params, headers=headers, timeout=20)
 
     print("GMGN STATUS:", r.status_code)
     print("GMGN RESPONSE:", r.text[:300])
 
-    data = r.json()
+    if r.status_code != 200:
+        raise Exception(f"GMGN blocked request: {r.status_code}")
 
+    try:
+        data = r.json()
+    except Exception:
+        raise Exception("GMGN did not return JSON")
 
-    wallets = data["data"]["list"]
+    wallets = data.get("data", {}).get("list", [])
 
 
 
